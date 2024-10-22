@@ -1,14 +1,12 @@
 import ImageWithFallback from "@/components/ImageWithFallback";
-import pets from "@/data/pets";
-import { redirect } from "next/navigation";
 
 import ActionButtons from "./components/ActionButtons";
+import { fetchPetsById } from "@/actions";
 
 async function PetDetailPage({ params }) {
   const { id } = await params;
-  const pet = pets.find((pet) => pet.id === +id);
 
-  if (!pet) redirect("/pets");
+  let pet = await fetchPetsById(id);
 
   const { image, name, type, adopted } = pet;
 
